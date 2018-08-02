@@ -1,5 +1,4 @@
-package com.cn.quarts.config;
-
+package com.lsp.core.config;
 import org.quartz.Scheduler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

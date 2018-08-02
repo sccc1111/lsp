@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="com.lsp" target="1.7" />
       <module name="comlsp" target="1.7" />
       <module name="lsp" target="1.7" />
       <module name="lsp-core" target="1.7" />
