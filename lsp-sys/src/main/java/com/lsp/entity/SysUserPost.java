@@ -1,6 +1,8 @@
 package com.lsp.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "sys_user_post")
 public class SysUserPost {

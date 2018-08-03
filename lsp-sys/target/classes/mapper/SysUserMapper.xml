@@ -26,4 +26,9 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+
+  <select id="selectUserByUserName"  parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from sys_user where login_name = #{userName}
+  </select>
+
 </mapper>

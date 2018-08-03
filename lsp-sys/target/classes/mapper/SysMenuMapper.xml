@@ -20,4 +20,18 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+
+  <sql id="title">
+      menu_id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon
+  </sql>
+
+  <select id="selectMenuByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT DISTINCT
+    <include refid="title"></include>
+     FROM SYS_MENU t1
+      INNER JOIN  sys_role_menu t2 ON t1.menu_id = t2.menu_id
+      INNER JOIN sys_user_role t3 ON t3.role_id = t2.role_id
+      INNER JOIN sys_role t4 ON t3.role_id = t4.role_id AND t4.status = 0
+    WHERE t3.user_id = #{userId}
+  </select>
 </mapper>

@@ -1,0 +1,35 @@
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+  profiles:
+    active: dev
+  #文件上传
+  servlet:
+     multipart:
+       max-file-size:  30MB
+       max-request-size:  30MB
+  devtools:
+    restart:
+      #禁用devtools模块的热部署功能
+      enabled: true
+# MyBatis
+mybatis:
+    # 搜索指定包别名
+    typeAliasesPackage: com.lsp.mapper
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath:mapper/*Mapper.xml
+    # 加载全局的配置文件
+    configLocation: classpath:mybatis-config.xml
+# PageHelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
