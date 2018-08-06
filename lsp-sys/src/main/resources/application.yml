@@ -32,4 +32,7 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+shiro:
+  user:
+    captchaEbabled: true
 
