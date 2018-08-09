@@ -3,10 +3,7 @@ package com.lsp.controller;
 import com.lsp.core.common.Constants;
 import com.lsp.core.common.ShiroUtils;
 import com.lsp.result.R;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +16,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by songbo on 2018/8/3.
@@ -49,10 +48,20 @@ public class LoginController {
                 return R.ok("验证成功");
             }
         } catch (UnknownAccountException e) {
-            msg = "用户名/密码错误";
+            msg = e.getMessage();
         } catch (IncorrectCredentialsException e) {
-            msg = "用户名/密码错误";
+            msg = "密码错误";
+        } catch (DisabledAccountException e){
+            msg = e.getMessage();
+        } catch (ExcessiveAttemptsException e){
+            msg = e.getMessage();
         }
         return R.error(msg);
+    }
+
+    @RequestMapping(value = "/unauth")
+    @ResponseBody
+    public R  unauth() {
+        return R.error(500,"未登录");
     }
 }

@@ -59,6 +59,7 @@ public class UserRealm extends AuthorizingRealm {
         else if("1".equals(user.getStatus())){
             throw new DisabledAccountException("帐号已经停用");
         }
+
         return new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(user.getSalt()),getName());
     }
 

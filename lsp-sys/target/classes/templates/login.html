@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="login">
-    <form class="login-form layui-form-pane layui-form" th:action="@{/login}" method="POST">
+    <form class="login-form layui-form-pane layui-form" >
         <div class="layui-form-item " pane>
             <label class="layui-form-label">账号：</label>
             <div class="layui-input-block">
@@ -35,7 +35,7 @@
         </div>
         <div class="layui-form-item">
             <div class="">
-                <button class="layui-btn " type="submit" style="padding: 0 81px" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
+                <button class="layui-btn "  type="button" style="padding: 0 81px" id="btnSubmit" data-loading="正在验证登录，请稍后..." onclick="login()" >登录</button>
                 <button type="reset" class="layui-btn layui-btn-primary" style="padding: 0 81px">重置</button>
             </div>
         </div>
@@ -43,48 +43,49 @@
 </div>
 <script th:inline="javascript"> var ctx = [[@{/}]];</script>
 <script src="../static/layui/layui.js" th:src="@{/static/layui/layui.js}"></script>
-<script src="../static/plugin/jquery/jquery-3.2.1.min.js" th:src="@{/static/plugin/jquery/jquery-3.2.1.min.js}"></script>
+<script src="../static/plugin/jquery/jquery.min.js" th:src="@{/static/plugin/jquery/jquery.min.js}"></script>
 <script src="../static/plugin/jquery/jquery.validate.min.js" th:src="@{/static/plugin/jquery/jquery.validate.min.js}"></script>
+<script src="../static/plugin/jquery/jquery-ui-1.10.4.min.js" th:src="@{/static/plugin/jquery/jquery-ui-1.10.4.min.js}"></script>
+<script src="../static/plugin/jquery/bootstrap.min.js" th:src="@{/static/plugin/jquery/bootstrap.min.js}"></script>
+<script src="../static/plugin/blockUI/jquery.blockUI.js" th:src="@{/static/plugin/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/js/common.js" th:src="@{/static/js/common.js}"></script>
 <script>
-    $.validator.setDefaults({
-        submitHandler: function() {
-            login();
-        }
-    });
 
     layui.use(['form','jquery'], function(){
         var form = layui.form;
         var $ = layui.jquery;
 
-        //验证
-        form.verify({
-            username:function (v) {
-                if(v.trim()==''){
-                    return "账号不能为空";
-                }
-            },
-            password:function (v) {
-                if(v.trim()==''){
-                    return "密码不能为空";
-                }
-            },code:function (v) {
-                if(v.trim()==''){
-                    return "验证码不能为空";
-                }
-            }
-        });
-        form.render();
-
         $("#kaptchaImage").click(function () {
             this.src = ctx+"captcha/captchaImage?d="+new Date().getTime();
         }).click().show();
+    });
 
-        function login() {
+    function login() {
+        var username = $.common.trim($("input[name='username']").val());
+        var password = $.common.trim($("input[name='password']").val());
+        var code = $("input[name='code']").val();
+        var map = $(".login input").map(function () {
+            return ($(this).attr("name") + "=" + $(this).val());
+        }).get().join("&");
+        alert(map)
+        var check = false
+        if($.common.isEmpty(username)){
+            $.modal.msgError("账号不能为空")
+            check = true;
+            return;
+        }
+        if($.common.isEmpty(password)){
+            $.modal.msgError("密码不能为空")
+            check = true;
+            return;
+        }
+        if($.common.isEmpty(code)){
+            $.modal.msgError("验证码不能为空")
+            check = true;
+            return;
+        }
+        if(!check){
             $.modal.loading($("#btnSubmit").data("loading"));
-            var username = $.common.trim($("input[name='username']").val());
-            var password = $.common.trim($("input[name='password']").val());
-            var code = $("input[name='code']").val();
             $.ajax({
                 type: "post",
                 url: ctx + "login",
@@ -99,12 +100,15 @@
                     } else {
                         $.modal.closeLoading();
                         $('.kaptchaImage').click();
-                        $.modal.msg(r.msg);
+                        $.modal.msgError(r.msg);
                     }
+                },error:function () {
+                    $.modal.closeLoading();
+                    $.modal.msg("系统错误，请联系管理员");
                 }
             });
         }
-    });
+    }
 </script>
 </body>
 </html>

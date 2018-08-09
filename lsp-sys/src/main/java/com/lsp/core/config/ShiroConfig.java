@@ -3,8 +3,13 @@ package com.lsp.core.config;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.lsp.core.filter.CaptchaValidateFilter;
 import com.lsp.core.realm.UserRealm;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,20 +34,33 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean
-    public UserRealm myShiroRealm() {
+    @Bean(name="myShiroRealm")
+    public UserRealm myShiroRealm(@Qualifier("credentialsMatcherConfig")HashedCredentialsMatcher credentialsMatcher) {
         UserRealm myShiroRealm = new UserRealm();
+        myShiroRealm.setCredentialsMatcher(credentialsMatcher);
         return myShiroRealm;
     }
 
     @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(@Qualifier("myShiroRealm") UserRealm myShiroRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(myShiroRealm);
+        //注入缓存管理器;
+        securityManager.setCacheManager(ehCacheManager());
         return securityManager;
     }
 
+    /**
+     * 缓存管理器 使用Ehcache实现
+     */
+    @Bean(name="ehCacheManager")
+    public EhCacheManager ehCacheManager()
+    {
+        EhCacheManager cacheManager = new EhCacheManager();
+        cacheManager.setCacheManagerConfigFile("classpath:ehcache/ehcache-shiro.xml");
+        return cacheManager;
+    }
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
@@ -89,6 +107,10 @@ public class ShiroConfig {
         return captchaValidateFilter;
     }
 
+    @Bean(name="credentialsMatcherConfig")
+    public HashedCredentialsMatcher getCredentialsMatcherConfig(@Qualifier("ehCacheManager") EhCacheManager ehCacheManager){
+        return new CredentialsMatcherConfig(ehCacheManager);
+    }
     @Bean
     public ShiroDialect shiroDialect(){
         return new ShiroDialect();
