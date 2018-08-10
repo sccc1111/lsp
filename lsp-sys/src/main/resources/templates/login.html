@@ -49,6 +49,7 @@
 <script src="../static/plugin/jquery/bootstrap.min.js" th:src="@{/static/plugin/jquery/bootstrap.min.js}"></script>
 <script src="../static/plugin/blockUI/jquery.blockUI.js" th:src="@{/static/plugin/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/js/common.js" th:src="@{/static/js/common.js}"></script>
+<script src="../static/js/form.js" th:src="@{/static/js/form.js}"></script>
 <script>
 
     layui.use(['form','jquery'], function(){
@@ -64,10 +65,6 @@
         var username = $.common.trim($("input[name='username']").val());
         var password = $.common.trim($("input[name='password']").val());
         var code = $("input[name='code']").val();
-        var map = $(".login input").map(function () {
-            return ($(this).attr("name") + "=" + $(this).val());
-        }).get().join("&");
-        alert(map)
         var check = false
         if($.common.isEmpty(username)){
             $.modal.msgError("账号不能为空")

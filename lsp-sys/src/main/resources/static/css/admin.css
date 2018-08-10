@@ -2,7 +2,7 @@
 @import "../layui/css/layui.css";
 .login{
     width:400px;
-    margin: 160px auto ;
+    margin: 160p    x auto ;
 }
 /** 遮罩层 */
 .loaderbox {
@@ -41,3 +41,7 @@
     -o-animation: pace-spinner 400ms linear infinite;
     animation: pace-spinner 400ms linear infinite;
 }
+/**
+    扩展layui原有的样式 打造自己的UI
+ */
+
