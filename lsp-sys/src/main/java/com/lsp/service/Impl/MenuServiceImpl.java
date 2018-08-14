@@ -1,5 +1,6 @@
 package com.lsp.service.Impl;
 
+import com.lsp.core.common.TreeUtils;
 import com.lsp.entity.SysMenu;
 import com.lsp.entity.SysRole;
 import com.lsp.mapper.SysMenuMapper;
@@ -32,4 +33,9 @@ public class MenuServiceImpl implements MenuService {
         return result;
     }
 
+    @Override
+    public List<SysMenu> selectMenuTree(Long userId) {
+        List<SysMenu> menuList = sysMenuMapper.selectMenuTree(userId);
+        return TreeUtils.getTree(menuList);
+    }
 }

@@ -35,4 +35,9 @@ pagehelper:
 shiro:
   user:
     captchaEbabled: true
+logging:
+  level:
+    com:
+      lsp:
+        mapper: debug
 

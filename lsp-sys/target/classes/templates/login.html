@@ -93,7 +93,7 @@
                 },
                 success: function(r) {
                     if (r.code == 200) {
-                        location.href = ctx + 'index';
+                        location.href = ctx + 'sys/index';
                     } else {
                         $.modal.closeLoading();
                         $('.kaptchaImage').click();

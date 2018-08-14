@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "sys_user")
 public class SysUser {
@@ -12,7 +13,7 @@ public class SysUser {
      */
     @Id
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 组织ID
@@ -125,7 +126,7 @@ public class SysUser {
      *
      * @return user_id - 用户ID
      */
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -134,7 +135,7 @@ public class SysUser {
      *
      * @param userId 用户ID
      */
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

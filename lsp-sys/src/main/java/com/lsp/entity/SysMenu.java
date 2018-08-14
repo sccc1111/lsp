@@ -3,7 +3,9 @@ package com.lsp.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "sys_menu")
 public class SysMenu {
@@ -86,6 +88,8 @@ public class SysMenu {
      * 备注
      */
     private String remark;
+
+    List<SysMenu> children= new ArrayList<SysMenu>();
 
     /**
      * 获取菜单ID
@@ -337,5 +341,13 @@ public class SysMenu {
      */
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
     }
 }

@@ -2,6 +2,7 @@ package com.lsp.core.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.lsp.core.filter.CaptchaValidateFilter;
+import com.lsp.core.filter.LogoutFilter;
 import com.lsp.core.realm.UserRealm;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -81,6 +82,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         Map<String, Filter> filters = new LinkedHashMap<>();
         filters.put("captchaValidate", captchaValidateFilter());
+        filters.put("logout", logoutFilter());
         shiroFilterFactoryBean.setFilters(filters);
         // 拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -107,6 +109,15 @@ public class ShiroConfig {
         return captchaValidateFilter;
     }
 
+    /**
+     * 退出过滤器
+     */
+    public LogoutFilter logoutFilter()
+    {
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setLoginUrl("/login");
+        return logoutFilter;
+    }
     @Bean(name="credentialsMatcherConfig")
     public HashedCredentialsMatcher getCredentialsMatcherConfig(@Qualifier("ehCacheManager") EhCacheManager ehCacheManager){
         return new CredentialsMatcherConfig(ehCacheManager);

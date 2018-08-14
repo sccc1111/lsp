@@ -10,9 +10,9 @@
     height: 100%;
     line-height: 60px;
     text-align: center;
-    color: #009688;
+    color: #f8f8f8;
     font-size: 16px;
-    background-color: #bad8eb;
+    background-color: #333;
 }
 .layui-layout-admin .layui-header {
     background-color: #f9f9f9;
@@ -36,7 +36,105 @@
 .layui-tab-title .layui-this {
     padding-top: 3px;
 }
-.layui-tab {
-    margin: 0;
-    text-align: left!important;
+.layui-tab-nav{
+    position: fixed;
+    left:200px;
+    height: 40px;
+    white-space: nowrap;
+    border-bottom: 1px solid #bab0a0;
+    width: 100%;
+}
+.tab-left-page{
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    padding: 11px;
+}
+.tab-right-page{
+    position: absolute;
+    top:0;
+    right: 240px;
+    cursor: pointer;
+    border-left: 1px solid #ddd;
+    text-align: center;
+    padding: 11px;
+}
+.tab-operate-page{
+    position: absolute;
+    top:0;
+    right: 200px;
+    cursor: pointer;
+    border-left: 1px solid #ddd;
+    text-align: center;
+    padding: 11px;
+}
+.layui-tab-nav .operate:hover{
+    background-color: #ddd;
+}
+.layui-nav-operate {
+    display: none;
+    position: absolute;
+    left: -65px;
+    top: 42px;
+    min-width: 100%;
+    width: 100px;
+    line-height: 36px;
+    padding: 5px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+    border: 1px solid #d2d2d2;
+    background-color: #fff;
+    z-index: 100;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+.layui-nav-operate dd:hover{
+    background-color: #ddd;
+}
+.main-tab{
+    margin-left: 39px;
+    box-sizing: border-box;
+}
+.active{
+    border-bottom: 4px solid #3baeff;
+    color: #3baeff!important;
+}
+.layui-tab-title li {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    position: relative;
+    line-height: 40px;
+    min-width: 65px;
+    padding: 0px 10px!important;
+    text-align: center;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+}
+.layui-tab-title {
+    position: relative;
+    left: 0;
+    height: 40px;
+    white-space: nowrap;
+    font-size: 0;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+.layui-tab-title li .layui-tab-close{
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 20px;
+    margin-left: 8px;
+    top: 1px;
+    text-align: center;
+    font-size: 14px;
+    color: #c2c2c2;
+    left: -7px;
+    transition: all .2s;
+    -webkit-transition: all .2s;
 }

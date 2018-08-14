@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<SysMenu> selectMenuByUserId(Long userId);
+
+    List<SysMenu> selectMenuTree(Long userId);
 }

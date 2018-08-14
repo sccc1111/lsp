@@ -2,7 +2,7 @@
 @import "../layui/css/layui.css";
 .login{
     width:400px;
-    margin: 160p    x auto ;
+    margin: 160px auto ;
 }
 /** 遮罩层 */
 .loaderbox {
@@ -44,4 +44,9 @@
 /**
     扩展layui原有的样式 打造自己的UI
  */
+.layui-nav-child-blcok{
+    padding-left: 10px;
+}
+
+
 
