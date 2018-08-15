@@ -23,7 +23,7 @@
                     admin
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="" >基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                     <dd><a th:href="@{/logout}">退出</a></dd>
                 </dl>
@@ -66,29 +66,30 @@
         <div class="tab-left-page  operate" tabindex="0"><i class="iconfont icon-double-left"></i></div>
         <div class="tab-right-page operate" tabindex="0"><i class="iconfont icon-double-right"></i></div>
         <div class="tab-operate-page operate" tabindex="0">
-             <i class="iconfont icon-xia" style="z-index: -1"></i>
-            <dl class="layui-nav-operate layui-anim-fadein layui-anim layui-anim-upbit">
-                <dd style="line-height: 36px;"><a href="">关闭当前</a></dd>
-                <dd><a href="">关闭其他</a></dd>
-                <dd><a href="">全部关闭</a></dd>
+
+            <i class="iconfont icon-xia" style="z-index: -1"></i>
+            <dl class="layui-nav-operate">
+                <dd ><a style="line-height: 36px;z-index: 101"class="tabCloseCur" href="javascript:;" >关闭当前</a></dd>
+                <dd><a href="javascript:;" class="tabCloseOther" onclick="aaa()">关闭其他</a></dd>
+                <dd><a href="javascript:;" class="tabCloseAll">全部关闭</a></dd>
             </dl>
         </div>
         <div class="main-tab" >
-            <ul class="layui-tab-title">
-                <li class="menuItem mainTab active mainPage" data-menuid="9999" data-href="/sys/main" data-menuname="首页">首页</li>
+            <ul class="layui-tab-title1">
+                <li class="mainTab active mainPage" data-menuid="9999" data-href="/sys/main" data-menuname="首页">首页</li>
             </ul>
         </div>
-    </div>
-    <div class="layui-tab-content">
-        <div class="layui-tab-item layui-show">
-            <iframe class="mainIframe" th:src="@{/sys/main}" width="100%" height="100%" frameborder="0" data-menuid="9999" data-menuname="首页"></iframe>
+
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe class="mainIframe" th:src="@{/sys/main}" width="100%" height="100%" frameborder="0" data-menuid="9999" data-menuname="首页"></iframe>
+            </div>
         </div>
     </div>
-
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
+<!--    <div class="layui-footer">
+        &lt;!&ndash; 底部固定区域 &ndash;&gt;
         © layui.com - 底部固定区域
-    </div>
+    </div>-->
 </div>
 
 <script th:inline="javascript"> var ctx = [[@{/}]];</script>

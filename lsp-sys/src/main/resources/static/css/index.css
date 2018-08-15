@@ -42,7 +42,6 @@
     height: 40px;
     white-space: nowrap;
     border-bottom: 1px solid #bab0a0;
-    width: 100%;
 }
 .tab-left-page{
     position: absolute;
@@ -51,24 +50,29 @@
     border-right: 1px solid #ddd;
     text-align: center;
     padding: 11px;
+    z-index: 100;
 }
 .tab-right-page{
     position: absolute;
     top:0;
-    right: 240px;
+    right: 40px;
     cursor: pointer;
     border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     text-align: center;
     padding: 11px;
+    z-index: 100;
 }
 .tab-operate-page{
     position: absolute;
     top:0;
-    right: 200px;
+    right: 0;
     cursor: pointer;
     border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     text-align: center;
     padding: 11px;
+    z-index: 100;
 }
 .layui-tab-nav .operate:hover{
     background-color: #ddd;
@@ -95,12 +99,12 @@
 .main-tab{
     margin-left: 39px;
     box-sizing: border-box;
+    overflow: hidden;
 }
 .active{
-    border-bottom: 4px solid #3baeff;
-    color: #3baeff!important;
+    background-color: #eee;
 }
-.layui-tab-title li {
+.layui-tab-title1 li {
     display: inline-block;
     vertical-align: middle;
     font-size: 14px;
@@ -109,12 +113,12 @@
     position: relative;
     line-height: 40px;
     min-width: 65px;
-    padding: 0px 10px!important;
+    padding: 2px 5px 0px 10px!important;
     text-align: center;
     cursor: pointer;
     border-right: 1px solid #ddd;
 }
-.layui-tab-title {
+.layui-tab-title1 {
     position: relative;
     left: 0;
     height: 40px;
@@ -123,7 +127,7 @@
     transition: all .2s;
     -webkit-transition: all .2s;
 }
-.layui-tab-title li .layui-tab-close{
+.layui-tab-title1 li .layui-tab-close{
     position: relative;
     display: inline-block;
     width: 18px;
@@ -137,4 +141,8 @@
     left: -7px;
     transition: all .2s;
     -webkit-transition: all .2s;
+}
+.layui-tab-title1 li .layui-tab-close:hover{
+    background-color: #FF5722;
+    color: #fff;
 }
