@@ -51,6 +51,7 @@
     text-align: center;
     padding: 11px;
     z-index: 100;
+    background-color: #f8f8f8;
 }
 .tab-right-page{
     position: absolute;
@@ -62,6 +63,7 @@
     text-align: center;
     padding: 11px;
     z-index: 100;
+    background-color: #f8f8f8;
 }
 .tab-operate-page{
     position: absolute;
@@ -73,6 +75,7 @@
     text-align: center;
     padding: 11px;
     z-index: 100;
+    background-color: #f8f8f8;
 }
 .layui-tab-nav .operate:hover{
     background-color: #ddd;

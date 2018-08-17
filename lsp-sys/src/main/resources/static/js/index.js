@@ -6,6 +6,12 @@ layui.use(['element'], function(){
     var element = layui.element;
 });
 $(function () {
+
+    $(window).bind("load resize",function () {
+        var ifheight = $(window).outerHeight(true) -  $(".layui-header").outerHeight(true)-$(".layui-tab-nav").outerHeight(true);
+        $(".layui-tab-content").css("height",ifheight);
+    })
+
     var tabWidth = $(window).width() - $(".layui-side").outerWidth();
     $(".layui-tab-nav").width(tabWidth);
 
@@ -192,35 +198,46 @@ $(function () {
     $(".tabCloseAll").on("click",tabCloseAll);
 
     $(".tab-right-page").click(function () {
-        var lw = Math.abs($(".layui-tab-title1").offset().left)-239;
-        console.log(lw)
+        var lw = Math.abs($(".layui-tab-title1").offset().left-239);
+        var w = calSumWidth($(".mainTab"))
         var vw = $(".layui-tab-nav").width() -  $(".tab-left-page").outerWidth(true) - $(".tab-right-page").outerWidth(true) - $(".tab-operate-page").outerWidth(true);
-        console.log(vw)
+        var l = w - vw-lw;
         var scroll;
-        if(lw!=0){
-            var s = parseInt(lw/vw);
+        if(l>0){
+            var s = parseInt(l/vw);
             if(s>=1){
                 scroll=vw;
             }else {
                 scroll=0;
+                var tab = $(".mainTab:visible:first");
+                while(l>0){
+                    scroll+=tab.outerWidth(true);
+                    l = l -tab.outerWidth(true);
+                    tab = tab.next();
+                }
             }
             $('.layui-tab-title1').animate({left: 0 - scroll-lw});
         }
     })
     $(".tab-left-page").click(function () {
-        var lw = Math.abs($(".layui-tab-title1").offset().left)-239;
+        var lw = Math.abs($(".layui-tab-title1").offset().left-239);
         var w = calSumWidth($(".mainTab"))
         var vw = $(".layui-tab-nav").width() -  $(".tab-left-page").outerWidth(true) - $(".tab-right-page").outerWidth(true) - $(".tab-operate-page").outerWidth(true);
         var r = w - lw- vw;
         var scroll=0;
-        var tab = $(".mainTab first:visible");
+        var tab = $(".mainTab:visible:first");
         if(r>0){
-
-        }
-        while(r>0){
-            scroll+=tab.outerWidth(true);
-            r = r -tab.outerWidth(true);
-            tab = tab.next();
+            var s = parseInt(r/vw);
+            if(s>=1){
+                scroll=vw;
+            }else {
+                while(r>0){
+                    console.log(tab.outerWidth(true))
+                    scroll+=tab.outerWidth(true);
+                    r = r -tab.outerWidth(true);
+                    tab = tab.next();
+                }
+            }
         }
         $('.layui-tab-title1').animate({left: 0 - scroll});
     })
