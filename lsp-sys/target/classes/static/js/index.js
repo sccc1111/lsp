@@ -6,9 +6,9 @@ layui.use(['element'], function(){
     var element = layui.element;
 });
 $(function () {
-
-    $(window).bind("load resize",function () {
+    $(window).on("load resize",function () {
         var ifheight = $(window).outerHeight(true) -  $(".layui-header").outerHeight(true)-$(".layui-tab-nav").outerHeight(true);
+        console.log(ifheight)
         $(".layui-tab-content").css("height",ifheight);
     })
 

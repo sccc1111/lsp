@@ -22,11 +22,12 @@ public class CaptchaConfig {
             properties.setProperty("kaptcha.textproducer.font.color", "blue");
             properties.setProperty("kaptcha.image.width", "100");
             properties.setProperty("kaptcha.image.height", "60");
-            properties.setProperty("kaptcha.textproducer.font.size", "25");
+            properties.setProperty("kaptcha.textproducer.font.size", "30");
             properties.setProperty("kaptcha.session.key", "kaptchaCode");
-            properties.setProperty("kaptcha.textproducer.char.spac", "35");
-            properties.setProperty("kaptcha.textproducer.char.length", "5");
-            properties.setProperty("kaptcha.textproducer.font.names", "Arial,Courier");
+            properties.setProperty("kaptcha.textproducer.char.space", "5");
+            properties.setProperty("kaptcha.textproducer.char.length", "4");
+            properties.setProperty("kaptcha.textproducer.char.string", "ABCDE2345678GFDNMPWX");
+            properties.setProperty("kaptcha.textproducer.font.names", "宋体,楷体,微软雅黑");
             properties.setProperty("kaptcha.noise.color", "white");
             Config config = new Config(properties);
             defaultKaptcha.setConfig(config);

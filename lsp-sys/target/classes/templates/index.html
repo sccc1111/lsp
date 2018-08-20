@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head class="header">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>首页</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
     <link rel="stylesheet" href="../static/css/admin.css">
     <link rel="stylesheet" href="../static/css/index.css">
     <link rel="stylesheet" href="../static/font/iconfont.css">
@@ -80,7 +81,7 @@
         </div>
 
         <div class="layui-tab-content">
-            <div class="layui-tab-item layui-show">
+            <div class="layui-tab-item layui-show mainiframes">
                 <iframe class="mainIframe" th:src="@{/sys/main}" width="100%" height="100%" frameborder="0" data-menuid="9999" data-menuname="首页"></iframe>
             </div>
         </div>
