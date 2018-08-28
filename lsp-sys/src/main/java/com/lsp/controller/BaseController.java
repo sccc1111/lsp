@@ -1,13 +1,19 @@
 package com.lsp.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lsp.core.common.ShiroUtils;
 import com.lsp.entity.SysUser;
+import com.lsp.result.PageEntity;
+import com.lsp.result.R;
+import com.lsp.utils.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by songbo on 2018/8/1.
@@ -45,5 +51,29 @@ public class BaseController {
     public Long getUserId()
     {
         return getUser().getUserId();
+    }
+
+    /**
+     * 设置请求分页数据
+     */
+    protected void startPage(PageEntity page)
+    {
+        if (StringUtils.isNotNull(page.getPageNo()) && StringUtils.isNotNull(page.getPageSize()))
+        {
+            PageHelper.startPage(page.getPageNo(), page.getPageSize(), page.getOrderBy());
+        }
+    }
+
+    /**
+     * 响应请求分页数据
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    protected R getDataTable(List<?> list)
+    {
+        R r = new R();
+        r.put("code",0);
+        r.put("data",list);
+        r.put("count",new PageInfo(list).getTotal());
+        return r;
     }
 }

@@ -186,6 +186,12 @@
             <version>2.0.0</version>
         </dependency>
 
+        <!-- thymeleaf网页解析 -->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

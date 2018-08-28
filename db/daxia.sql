@@ -10,10 +10,232 @@ Target Server Type    : MYSQL
 Target Server Version : 50559
 File Encoding         : 65001
 
-Date: 2018-08-10 15:23:19
+Date: 2018-08-28 13:59:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for eos_qrtz_blob_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_blob_triggers`;
+CREATE TABLE `eos_qrtz_blob_triggers` (
+  `TRIGGER_NAME` varchar(80) NOT NULL,
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  `BLOB_DATA` blob,
+  PRIMARY KEY (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `FK477B155B2D997664` (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `FK477B155B2D997664` FOREIGN KEY (`TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `eos_qrtz_triggers` (`TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_blob_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_calendars
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_calendars`;
+CREATE TABLE `eos_qrtz_calendars` (
+  `CALENDAR_NAME` varchar(80) NOT NULL,
+  `CALENDAR` blob NOT NULL,
+  PRIMARY KEY (`CALENDAR_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_calendars
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_cron_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_cron_triggers`;
+CREATE TABLE `eos_qrtz_cron_triggers` (
+  `TRIGGER_NAME` varchar(80) NOT NULL,
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  `CRON_EXPRESSION` varchar(80) NOT NULL,
+  `TIME_ZONE_ID` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `FKD799498A2D997664` (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `FKD799498A2D997664` FOREIGN KEY (`TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `eos_qrtz_triggers` (`TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_cron_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_fired_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_fired_triggers`;
+CREATE TABLE `eos_qrtz_fired_triggers` (
+  `ENTRY_ID` varchar(95) NOT NULL,
+  `TRIGGER_NAME` varchar(80) NOT NULL,
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  `IS_VOLATILE` int(11) NOT NULL,
+  `INSTANCE_NAME` varchar(80) NOT NULL,
+  `FIRED_TIME` bigint(20) NOT NULL,
+  `STATE` varchar(16) NOT NULL,
+  `JOB_NAME` varchar(80) DEFAULT NULL,
+  `JOB_GROUP` varchar(80) DEFAULT NULL,
+  `IS_STATEFUL` int(11) DEFAULT NULL,
+  `REQUESTS_RECOVERY` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ENTRY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_fired_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_job_details
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_job_details`;
+CREATE TABLE `eos_qrtz_job_details` (
+  `JOB_NAME` varchar(80) NOT NULL,
+  `JOB_GROUP` varchar(80) NOT NULL,
+  `DESCRIPTION` varchar(120) DEFAULT NULL,
+  `JOB_CLASS_NAME` varchar(128) NOT NULL,
+  `IS_DURABLE` int(11) NOT NULL,
+  `IS_VOLATILE` int(11) NOT NULL,
+  `IS_STATEFUL` int(11) NOT NULL,
+  `REQUESTS_RECOVERY` int(11) NOT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`JOB_NAME`,`JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_job_details
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_job_listeners
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_job_listeners`;
+CREATE TABLE `eos_qrtz_job_listeners` (
+  `JOB_LISTENER` varchar(80) NOT NULL,
+  `JOB_NAME` varchar(80) NOT NULL,
+  `JOB_GROUP` varchar(80) NOT NULL,
+  PRIMARY KEY (`JOB_LISTENER`,`JOB_NAME`,`JOB_GROUP`),
+  KEY `FKBF2E553BBCB755AB` (`JOB_NAME`,`JOB_GROUP`),
+  CONSTRAINT `FKBF2E553BBCB755AB` FOREIGN KEY (`JOB_NAME`, `JOB_GROUP`) REFERENCES `eos_qrtz_job_details` (`JOB_NAME`, `JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_job_listeners
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_locks
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_locks`;
+CREATE TABLE `eos_qrtz_locks` (
+  `LOCK_NAME` varchar(40) NOT NULL,
+  PRIMARY KEY (`LOCK_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_locks
+-- ----------------------------
+INSERT INTO `eos_qrtz_locks` VALUES ('CALENDAR_ACCESS');
+INSERT INTO `eos_qrtz_locks` VALUES ('JOB_ACCESS');
+INSERT INTO `eos_qrtz_locks` VALUES ('MISFIRE_ACCESS');
+INSERT INTO `eos_qrtz_locks` VALUES ('STATE_ACCESS');
+INSERT INTO `eos_qrtz_locks` VALUES ('TRIGGER_ACCESS');
+
+-- ----------------------------
+-- Table structure for eos_qrtz_paused_trigger_grps
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_paused_trigger_grps`;
+CREATE TABLE `eos_qrtz_paused_trigger_grps` (
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  PRIMARY KEY (`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_paused_trigger_grps
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_scheduler_state
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_scheduler_state`;
+CREATE TABLE `eos_qrtz_scheduler_state` (
+  `INSTANCE_NAME` varchar(80) NOT NULL,
+  `LAST_CHECKIN_TIME` bigint(20) NOT NULL,
+  `CHECKIN_INTERVAL` bigint(20) NOT NULL,
+  `RECOVERER` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`INSTANCE_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_scheduler_state
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_simple_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_simple_triggers`;
+CREATE TABLE `eos_qrtz_simple_triggers` (
+  `TRIGGER_NAME` varchar(80) NOT NULL,
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  `REPEAT_COUNT` bigint(20) NOT NULL,
+  `REPEAT_INTERVAL` bigint(20) NOT NULL,
+  `TIMES_TRIGGERED` bigint(20) NOT NULL,
+  PRIMARY KEY (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `FK1FF9C7662D997664` (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `FK1FF9C7662D997664` FOREIGN KEY (`TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `eos_qrtz_triggers` (`TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_simple_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_triggers`;
+CREATE TABLE `eos_qrtz_triggers` (
+  `TRIGGER_NAME` varchar(80) NOT NULL,
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  `IS_VOLATILE` int(11) NOT NULL,
+  `DESCRIPTION` varchar(120) DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint(20) DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint(20) DEFAULT NULL,
+  `TRIGGER_STATE` varchar(16) NOT NULL,
+  `TRIGGER_TYPE` varchar(8) NOT NULL,
+  `START_TIME` bigint(20) NOT NULL,
+  `END_TIME` bigint(20) DEFAULT NULL,
+  `CALENDAR_NAME` varchar(80) DEFAULT NULL,
+  `MISFIRE_INSTR` smallint(6) DEFAULT '2',
+  `JOB_DATA` blob,
+  `JOB_NAME` varchar(80) NOT NULL,
+  `JOB_GROUP` varchar(80) NOT NULL,
+  PRIMARY KEY (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `FK861889BDBCB755AB` (`JOB_NAME`,`JOB_GROUP`),
+  CONSTRAINT `FK861889BDBCB755AB` FOREIGN KEY (`JOB_NAME`, `JOB_GROUP`) REFERENCES `eos_qrtz_job_details` (`JOB_NAME`, `JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eos_qrtz_trigger_listeners
+-- ----------------------------
+DROP TABLE IF EXISTS `eos_qrtz_trigger_listeners`;
+CREATE TABLE `eos_qrtz_trigger_listeners` (
+  `TRIGGER_LISTENER` varchar(80) NOT NULL,
+  `TRIGGER_NAME` varchar(80) NOT NULL,
+  `TRIGGER_GROUP` varchar(80) NOT NULL,
+  PRIMARY KEY (`TRIGGER_LISTENER`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `FK4D8F4A762D997664` (`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `FK4D8F4A762D997664` FOREIGN KEY (`TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `eos_qrtz_triggers` (`TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eos_qrtz_trigger_listeners
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_cron
@@ -126,11 +348,31 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=502 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
+INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', 'M', '0', '', 'iconfont icon-xitongguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '系统管理目录');
+INSERT INTO `sys_menu` VALUES ('2', '系统监控', '0', '2', '#', 'M', '1', '', 'iconfont icon-yonghuguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '系统监控目录');
+INSERT INTO `sys_menu` VALUES ('3', '系统工具', '0', '3', '#', 'M', '1', '', 'iconfont ', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '系统工具目录');
+INSERT INTO `sys_menu` VALUES ('100', '用户管理', '1', '1', '/sys/user', 'C', '0', 'system:user:view', 'iconfont icon-yonghuguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '用户管理菜单');
+INSERT INTO `sys_menu` VALUES ('101', '角色管理', '1', '2', '/sys/role', 'C', '0', 'system:role:view', 'iconfont icon-jiaoseguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '角色管理菜单');
+INSERT INTO `sys_menu` VALUES ('102', '菜单管理', '1', '3', '/sys/menu', 'C', '0', 'system:menu:view', 'iconfont icon-erji-caidanguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '菜单管理菜单');
+INSERT INTO `sys_menu` VALUES ('103', '部门管理', '1', '4', '/sys/dept', 'C', '1', 'system:dept:view', 'iconfont ', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '部门管理菜单');
+INSERT INTO `sys_menu` VALUES ('104', '岗位管理', '1', '5', '/sys/post', 'C', '1', 'system:post:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '岗位管理菜单');
+INSERT INTO `sys_menu` VALUES ('105', '字典管理', '1', '6', '/sys/dict', 'C', '0', 'system:dict:view', 'iconfont icon-shujuzidianguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '字典管理菜单');
+INSERT INTO `sys_menu` VALUES ('106', '参数设置', '1', '7', '/sys/user', 'C', '1', 'system:config:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '参数设置菜单');
+INSERT INTO `sys_menu` VALUES ('107', '通知公告', '1', '8', '/sys/user', 'C', '1', 'system:notice:view', 'iconfont icon-qunfengtongzhigonggao', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '通知公告菜单');
+INSERT INTO `sys_menu` VALUES ('108', '日志管理', '1', '9', '#', 'M', '1', '', 'iconfont icon-xitongrizhiguanli', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '日志管理菜单');
+INSERT INTO `sys_menu` VALUES ('109', '在线用户', '2', '1', '/sys/user', 'C', '1', 'monitor:online:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '在线用户菜单');
+INSERT INTO `sys_menu` VALUES ('110', '定时任务', '2', '2', '/sys/user', 'C', '0', 'monitor:job:view', 'iconfont icon-navicon-dsrwpz', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '定时任务菜单');
+INSERT INTO `sys_menu` VALUES ('111', '数据监控', '2', '3', '/sys/user', 'C', '1', 'monitor:data:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '数据监控菜单');
+INSERT INTO `sys_menu` VALUES ('112', '表单构建', '3', '1', '/sys/user', 'C', '1', 'tool:build:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '表单构建菜单');
+INSERT INTO `sys_menu` VALUES ('113', '代码生成', '3', '2', '/sys/user', 'C', '1', 'tool:gen:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '代码生成菜单');
+INSERT INTO `sys_menu` VALUES ('114', '系统接口', '3', '3', '/sys/user', 'C', '1', 'tool:swagger:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '系统接口菜单');
+INSERT INTO `sys_menu` VALUES ('500', '操作日志', '108', '1', '/sys/user', 'C', '1', 'monitor:operlog:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '操作日志菜单');
+INSERT INTO `sys_menu` VALUES ('501', '登录日志', '108', '2', '/sys/user', 'C', '1', 'monitor:logininfor:view', 'iconfont', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '登录日志菜单');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -218,11 +460,12 @@ CREATE TABLE `sys_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='角色信息表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
+INSERT INTO `sys_role` VALUES ('1', 'admin', '1', '1', '0', '', null, '', null, '');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -237,6 +480,24 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
+INSERT INTO `sys_role_menu` VALUES ('1', '1');
+INSERT INTO `sys_role_menu` VALUES ('1', '2');
+INSERT INTO `sys_role_menu` VALUES ('1', '3');
+INSERT INTO `sys_role_menu` VALUES ('1', '100');
+INSERT INTO `sys_role_menu` VALUES ('1', '101');
+INSERT INTO `sys_role_menu` VALUES ('1', '102');
+INSERT INTO `sys_role_menu` VALUES ('1', '103');
+INSERT INTO `sys_role_menu` VALUES ('1', '104');
+INSERT INTO `sys_role_menu` VALUES ('1', '105');
+INSERT INTO `sys_role_menu` VALUES ('1', '106');
+INSERT INTO `sys_role_menu` VALUES ('1', '107');
+INSERT INTO `sys_role_menu` VALUES ('1', '108');
+INSERT INTO `sys_role_menu` VALUES ('1', '109');
+INSERT INTO `sys_role_menu` VALUES ('1', '110');
+INSERT INTO `sys_role_menu` VALUES ('1', '111');
+INSERT INTO `sys_role_menu` VALUES ('1', '112');
+INSERT INTO `sys_role_menu` VALUES ('1', '113');
+INSERT INTO `sys_role_menu` VALUES ('1', '114');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -298,3 +559,4 @@ CREATE TABLE `sys_user_role` (
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
+INSERT INTO `sys_user_role` VALUES ('1', '1');

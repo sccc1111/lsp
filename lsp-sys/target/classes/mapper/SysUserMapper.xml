@@ -31,4 +31,7 @@
       select * from sys_user where login_name = #{userName}
   </select>
 
+  <select id="selectUserList" parameterType="com.lsp.entity.SysUser" resultMap="BaseResultMap">
+       select * from sys_user where login_name = #{userName}
+  </select>
 </mapper>

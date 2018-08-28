@@ -1,11 +1,119 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>首页</title>
-</head>
+<head th:include="header::header" />
 <body>
-    user
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-row ">
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户姓名</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="username" id="username" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md8">
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <a class="layui-btn  layui-fr" style="margin-right:20px" href="javascript:void(0);" lay-submit lay-filter="searchUser">查询</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <div class="toolbar-table">
+                    <button class="layui-btn layuiadmin-btn-role" data-type="batchdel">删除</button>
+                    <button class="layui-btn layuiadmin-btn-role" data-type="add">添加</button>
+                </div>
+
+                <table id="userTable" lay-filter="LAY-user-back-role"></table>
+                <script type="text/html" id="table-useradmin-admin">
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+                </script>
+            </div>
+        </div>
+    </div>
+    <div th:include="footer::footer"></div>
+    <script>
+        layui.use(['form','table'], function(){
+            var form = layui.form,
+                table = layui.table;
+            var userManager = {
+                tableLoad : function(){
+                    table.render({
+                        elem : '#userTable',
+                        id : 'userTable',
+                        height: 'full-200',
+                        url : ctx+'sys/user/list',
+                        request: {
+                            pageName: 'pageNo',
+                            limitName: 'pageSize'
+                        },
+                        where:{
+                            //用户姓名
+                            userName : $.trim($("#username").val())
+                        },
+                        cols:[
+                            [
+                                {
+                                    type : 'checkbox',
+                                    fixed:'left',
+                                    width:40
+                                },
+                                {
+                                    type:'numbers',
+                                    width:40,
+                                    title: '序号',
+                                    fixed:'left'
+                                },
+                                {
+                                    field : 'userName',
+                                    title : '用户姓名',
+                                    align : 'center',
+                                    width : 100
+                                },
+                                {
+                                    field : 'email',
+                                    title : '邮箱',
+                                    align : 'center',
+                                    width : 120
+                                },
+                                {
+                                    field : 'phonenumber',
+                                    title : '电话',
+                                    align : 'center',
+                                    width : 120
+                                },
+                                {
+                                    field : 'sex',
+                                    title : '性别',
+                                    align : 'center',
+                                    width : 60
+                                },
+                                {
+                                    field : 'status',
+                                    title : '状态',
+                                    align : 'center',
+                                    width : 60
+                                }
+                            ]
+                        ]
+                        ,page: true
+                    });
+                }
+            }
+
+            //查询
+            form.on('submit(searchUser)',function () {
+                userManager.tableLoad();
+            })
+            //初期化
+            userManager.tableLoad() ;
+        });
+    </script>
 </body>
 </html>

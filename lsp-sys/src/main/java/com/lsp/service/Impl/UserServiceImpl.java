@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by songbo on 2018/8/2.
  */
@@ -21,4 +23,8 @@ public class UserServiceImpl implements UserService {
         return sysUserMapper.selectUserByUserName(userName);
     }
 
+    @Override
+    public List<SysUser> selectUserList(SysUser user) {
+        return sysUserMapper.selectUserList(user);
+    }
 }

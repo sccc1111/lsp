@@ -8,16 +8,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="lsp-core" />
         <module name="lsp-sys" />
-        <module name="lsp-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="com.lsp" target="1.7" />
-      <module name="comlsp" target="1.7" />
-      <module name="lsp" target="1.7" />
-      <module name="lsp-core" target="1.7" />
-      <module name="lsp-sys" target="1.7" />
-      <module name="lsp-web" target="1.7" />
+      <module name="com.lsp" target="1.8" />
+      <module name="lsp-core" target="1.8" />
+      <module name="lsp-sys" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

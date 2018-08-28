@@ -9,7 +9,7 @@ $(function () {
     $(window).on("load resize",function () {
         var ifheight = $(window).outerHeight(true) -  $(".layui-header").outerHeight(true)-$(".layui-tab-nav").outerHeight(true);
         console.log(ifheight)
-        $(".layui-tab-content").css("height",ifheight);
+        $(".layuiadmin-tab-content").css("height",ifheight);
     })
 
     var tabWidth = $(window).width() - $(".layui-side").outerWidth();
@@ -78,7 +78,7 @@ $(function () {
                     $(this).addClass('active').siblings('.mainTab').removeClass('active');
                 }
                 scrollToTab($(this));
-                $('.layui-tab-content .mainIframe').each(function() {
+                $('.layuiadmin-tab-content .mainIframe').each(function() {
                     if ($(this).data('menuid') == menuId) {
                         $(this).show().siblings('.mainIframe').hide();
                         return false;
@@ -96,7 +96,7 @@ $(function () {
             var iframe = '<iframe class="mainIframe" src="'+url+'" width="100%" height="100%" frameborder="0" data-menuid="'+menuId+'" data-menuname="'+menuName+'"></iframe>'
             $(".layui-tab-item").find('iframe.mainIframe').hide().parents('.layui-tab-item').append(iframe)
             $.modal.loading("数据加载中，请稍后...");
-            $('.layui-tab-content iframe:visible').load(function () {
+            $('.layuiadmin-tab-content iframe:visible').load(function () {
                 $.modal.closeLoading();
             });
         }
@@ -109,7 +109,7 @@ $(function () {
                 if(!$(this).hasClass("active")){
                     $(this).addClass('active').siblings('.mainTab').removeClass('active');
                 }
-                $('.layui-tab-content .mainIframe').each(function() {
+                $('.layuiadmin-tab-content .mainIframe').each(function() {
                     if ($(this).data('menuid') == menuId) {
                         $(this).show().siblings('.mainIframe').hide();
                         return false;
@@ -127,7 +127,7 @@ $(function () {
             var $pre = $(this).parent().prev()
             $pre.addClass("active");
             $(this).parent().remove();
-            $('.layui-tab-content .mainIframe').each(function() {
+            $('.layuiadmin-tab-content .mainIframe').each(function() {
                 if ($(this).data('menuid') == $pre.data('menuid')) {
                     $(this).show().siblings('.mainIframe').remove();
                     return false;
@@ -148,7 +148,7 @@ $(function () {
         if($cur.data("menuid")!="9999"){
             var $pre = $cur.prev().addClass("active");
             $cur.remove();
-            $('.layui-tab-content .mainIframe').each(function() {
+            $('.layuiadmin-tab-content .mainIframe').each(function() {
                 if ($(this).data('menuid') == $cur.data('menuid')) {
                     $(this).remove();
                 }else if ($(this).data('menuid') == $pre.data('menuid')){
@@ -168,7 +168,7 @@ $(function () {
                 $(this).remove();
             }
         })
-        $('.layui-tab-content .mainIframe').each(function() {
+        $('.layuiadmin-tab-content .mainIframe').each(function() {
             if($(this).data("menuid")!="9999"&& $(this).data("menuid")!=$(".active").data("menuid")){
                 $(this).remove();
             }
@@ -186,7 +186,7 @@ $(function () {
                 $(this).remove();
             }
         });
-        $('.layui-tab-content .mainIframe').each(function() {
+        $('.layuiadmin-tab-content .mainIframe').each(function() {
             if($(this).data("menuid")!="9999"){
                 $(this).remove();
             }else {

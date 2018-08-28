@@ -2,7 +2,7 @@
 @import "../layui/css/layui.css";
 .login{
     width:400px;
-    margin: 160px auto ;
+    margin: 250px auto;
 }
 /** 遮罩层 */
 .loaderbox {
@@ -46,6 +46,33 @@
  */
 .layui-nav-child-blcok{
     padding-left: 10px;
+}
+.layui-card {
+    padding: 15px 15px 0;
+    border-bottom: 1px solid rgb(229, 233, 242);
+}
+.layui-input, .layui-textarea, .layui-select {
+    border-radius: 18px;
+}
+.layui-fr{
+    float: right!important;
+}
+.layui-btn {
+    min-width: 120px;
+    border-radius: 50px;
+    height: 35px;
+    line-height: 35px;
+}
+html {
+    background-color: #f2f2f2;
+    color: #666;
+}
+.layui-fluid {
+    padding: 15px;
+}
+.toolbar-table{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f6f6f6;
 }
 
 
