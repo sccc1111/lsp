@@ -38,4 +38,15 @@ public class UserController extends BaseController {
         return  getDataTable(userService.selectUserList(user));
     }
 
+    @GetMapping("/user/detail")
+    public String index(String type,String userId,ModelMap map){
+        if("1".equals(type)){
+            //新规的场合
+        }else {
+            //其他场合
+        }
+        map.put("type",type);
+        return "user/userDetail";
+    }
+
 }

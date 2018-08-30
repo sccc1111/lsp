@@ -4,6 +4,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.lsp.core.filter.CaptchaValidateFilter;
 import com.lsp.core.filter.LogoutFilter;
 import com.lsp.core.realm.UserRealm;
+import com.lsp.core.tag.Dialect;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
@@ -125,5 +126,10 @@ public class ShiroConfig {
     @Bean
     public ShiroDialect shiroDialect(){
         return new ShiroDialect();
+    }
+
+    @Bean
+    public Dialect testDialect(){
+        return new Dialect();
     }
 }

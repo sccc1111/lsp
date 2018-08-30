@@ -20,4 +20,9 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  
+  <select id="selectDictListByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT d1.* FROM sys_dict_data d1,sys_dict_type d2
+    where d1.dict_type = d2.dict_type AND d1.status = 0 AND d2.status = 0 AND d1.dict_type = #{code}
+  </select>
 </mapper>

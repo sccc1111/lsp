@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:phxl="http://www.w3.org/1999/xhtml">
 <head th:include="header::header" />
 <body>
     <div class="layui-fluid">
@@ -14,7 +14,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md8">
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户性别</label>
+                            <div class="layui-input-block">
+                                <phxl:dict dictType="USER_SEX" id="sex" name="sex"></phxl:dict>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                         <div class="layui-form-item">
                             <div class="layui-input-block">
                                 <a class="layui-btn  layui-fr" style="margin-right:20px" href="javascript:void(0);" lay-submit lay-filter="searchUser">查询</a>
@@ -25,14 +33,15 @@
             </div>
             <div class="layui-card-body">
                 <div class="toolbar-table">
-                    <button class="layui-btn layuiadmin-btn-role" data-type="batchdel">删除</button>
-                    <button class="layui-btn layuiadmin-btn-role" data-type="add">添加</button>
+                    <button class="layui-btn layuiadmin-btn-role" lay-submit lay-filter="delAll">删除</button>
+                    <button class="layui-btn layuiadmin-btn-role" lay-submit lay-filter="add">添加</button>
                 </div>
 
-                <table id="userTable" lay-filter="LAY-user-back-role"></table>
-                <script type="text/html" id="table-useradmin-admin">
-                    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+                <table id="userTable"  lay-filter="userTable"></table>
+                <script type="text/html" id="table-user-toolbar">
+                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                 </script>
             </div>
         </div>
@@ -55,7 +64,8 @@
                         },
                         where:{
                             //用户姓名
-                            userName : $.trim($("#username").val())
+                            userName : $.trim($("#username").val()),
+                            sex :  $.trim($("select[name='sex']").val())
                         },
                         cols:[
                             [
@@ -74,13 +84,13 @@
                                     field : 'userName',
                                     title : '用户姓名',
                                     align : 'center',
-                                    width : 100
+                                    width : 120
                                 },
                                 {
                                     field : 'email',
                                     title : '邮箱',
                                     align : 'center',
-                                    width : 120
+                                    width : 200
                                 },
                                 {
                                     field : 'phonenumber',
@@ -99,6 +109,13 @@
                                     title : '状态',
                                     align : 'center',
                                     width : 60
+                                },
+                                {
+                                    width:178,
+                                    align:'center',
+                                    fixed: 'right',
+                                    title: '操作',
+                                    toolbar: '#table-user-toolbar'
                                 }
                             ]
                         ]
@@ -111,6 +128,82 @@
             form.on('submit(searchUser)',function () {
                 userManager.tableLoad();
             })
+
+            //删除
+            form.on('submit(delAll)',function () {
+
+            })
+
+            //添加
+            form.on('submit(add)',function () {
+                var url= ctx +'sys/user/detail?type=1';
+                //打开页面
+                layer.open({
+                    type:2,
+                    content : url,
+                    title : '登录用户信息',
+                    area: ['1050px', '630px'],
+                    btnAlign: 'c',
+                    btn:['保存','取消'],
+                    yes: function (index, layero) {
+
+                    },
+                    /**右上角关闭按钮事件*/
+                    cancel: function(index, layero){
+                        layer.close(index);
+                    }
+                });
+            })
+            table.on('tool(userTable)', function(obj){
+                var data = obj.data;
+                //查看
+                if(obj.event === 'detail'){
+                    //查看URL
+                    var url= ctx +'';
+                    //打开页面
+                    layer.open({
+                        type:2,
+                        content : url,
+                        title : '编辑用户信息',
+                        area: ['1050px', '630px'],
+                        btnAlign: 'c',
+                        btn:['保存','取消'],
+                        yes: function (index, layero) {
+
+                        },
+                        /**右上角关闭按钮事件*/
+                        cancel: function(index, layero){
+                            layer.close(index);
+                        }
+                    });
+                    //删除
+                } else if(obj.event === 'del'){
+                    layer.confirm('是否删除？', function(index){
+                        layer.close(index);
+                    });
+                    //编辑
+                } else if(obj.event === 'edit'){
+                    //编辑URL
+                    var url= ctx +'';
+                    //打开页面
+                    layer.open({
+                        type:2,
+                        content : url,
+                        title : '编辑用户信息',
+                        area: ['1050px', '630px'],
+                        btnAlign: 'c',
+                        btn:['更新','取消'],
+                        yes: function (index, layero) {
+                            
+                        },
+                        /**右上角关闭按钮事件*/
+                        cancel: function(index, layero){
+                            layer.close(index);
+                        }
+                    });
+                }
+            });
+
             //初期化
             userManager.tableLoad() ;
         });

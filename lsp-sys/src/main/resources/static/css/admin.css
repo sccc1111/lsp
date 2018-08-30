@@ -57,12 +57,7 @@
 .layui-fr{
     float: right!important;
 }
-.layui-btn {
-    min-width: 120px;
-    border-radius: 50px;
-    height: 35px;
-    line-height: 35px;
-}
+
 html {
     background-color: #f2f2f2;
     color: #666;
@@ -73,6 +68,11 @@ html {
 .toolbar-table{
     padding-bottom: 10px;
     border-bottom: 1px solid #f6f6f6;
+}
+
+.layui-panle{
+    background-color: white;
+    height: 100%;
 }
 
 
