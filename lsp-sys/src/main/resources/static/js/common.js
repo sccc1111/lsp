@@ -41,6 +41,7 @@
             },
             // 弹出提示
             alert: function(content, type) {
+                if(top.layer)layer = top.layer;
                 layer.alert(content, {
                     icon: $.modal.icon(type),
                     title: "系统提示",
@@ -50,6 +51,7 @@
             },
             // 消息提示并刷新父窗体
             msgReload: function(msg, type) {
+                if(top.layer)layer = top.layer;
                 layer.msg(msg, {
                         icon: $.modal.icon(type),
                         time: 500,
@@ -177,6 +179,51 @@
                     return "";
                 }
                 return value.toString().replace(/(^\s*)|(\s*$)|\r|\n/g, "");
+            }
+        },
+        doAction :{
+            //一般后台访问
+            ajax:function(options){
+                var defaults = {
+                    async:true,
+                    url : '',
+                    type : 'POST',
+                    async: true,
+                    contentType : 'application/json;charset=UTF-8',
+                    data : {},// 数据 必须是字符串JSON.stringify(loginstr)
+                    dataType : 'json',// 期望返回类型 json, xml
+                    processData : false,// 防止 data 被预处理
+                    success : function(data) {
+
+                    },
+                    error:function(req,msg,ex_){
+
+                    },
+                    exception:function(ex_){
+
+                    }
+                }
+                var options_ = $.extend(defaults, options);
+                if(options_.url){
+                    $.ajax({
+                        url: options_.url,
+                        type: 'POST',// 必须是POST
+                        async: options_.async,
+                        contentType:'application/json;charset=UTF-8',
+                        data: JSON.stringify(options_.data),// 数据 必须是字符串
+                        dataType: options_.dataType,// 期望返回类型 json, xml
+                        processData: false,// 防止 data 被预处理
+                        success:function(data){//options_.success
+                            if(data.exception){
+                                layer.alert(data.exception.message, {icon: 2,zIndex: layer.zIndex},function(index_){
+                                    layer.close(index_);
+                                });
+                            }else{
+                                if(options_.success)options_.success(data);
+                            }
+                        }
+                    });
+                }
             }
         }
     });

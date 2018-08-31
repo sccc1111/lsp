@@ -73,6 +73,13 @@ html {
 .layui-panle{
     background-color: white;
     height: 100%;
+    border-bottom: 1px solid #bebebe;
+    padding: 10px 30px 10px 0px;
+    box-sizing: border-box;
+}
+html,body{
+    width: 100%;
+    height: 100%;
 }
 
 

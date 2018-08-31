@@ -8,7 +8,7 @@
                 <div class="layui-row ">
                     <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">用户姓名</label>
+                            <label class="layui-form-label">姓名</label>
                             <div class="layui-input-block">
                                 <input type="text" name="username" id="username" autocomplete="off" class="layui-input">
                             </div>
@@ -16,7 +16,7 @@
                     </div>
                     <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">用户性别</label>
+                            <label class="layui-form-label">性别</label>
                             <div class="layui-input-block">
                                 <phxl:dict dictType="USER_SEX" id="sex" name="sex"></phxl:dict>
                             </div>
@@ -48,8 +48,9 @@
     </div>
     <div th:include="footer::footer"></div>
     <script>
-        layui.use(['form','table'], function(){
+        layui.use(['form','table','layer'], function(){
             var form = layui.form,
+                layer =  top.layui.layer,
                 table = layui.table;
             var userManager = {
                 tableLoad : function(){
@@ -81,8 +82,14 @@
                                     fixed:'left'
                                 },
                                 {
+                                    field : 'loginName',
+                                    title : '姓名',
+                                    align : 'center',
+                                    width : 120
+                                },
+                                {
                                     field : 'userName',
-                                    title : '用户姓名',
+                                    title : '呢称',
                                     align : 'center',
                                     width : 120
                                 },
@@ -142,10 +149,56 @@
                     type:2,
                     content : url,
                     title : '登录用户信息',
-                    area: ['1050px', '630px'],
+                    area: ['800px', '480px'],
                     btnAlign: 'c',
                     btn:['保存','取消'],
                     yes: function (index, layero) {
+                        //获取弹出层对象
+                        var layerFrame = $(layero).find("#layui-layer-iframe" + index)[0].contentWindow;
+                        var data = layerFrame.userDetail.getData();
+                        if(data.loginName.length == 0){
+                            layer.alert("请输入姓名！", {icon : 2, zIndex : layer.zIndex});
+                            return false;
+                        }
+                        if(data.userName.length == 0){
+                            layer.alert("请输入呢称！", {icon : 2, zIndex : layer.zIndex});
+                            return false;
+                        }
+                        if(data.sex.length == 0){
+                            layer.alert("请选择性别！", {icon : 2, zIndex : layer.zIndex});
+                            return false;
+                        }
+                        if(data.phonenumber.length == 0){
+                        } else {
+                            var rex1=/^1[3-8]+\d{9}$/;
+                            if(!rex1.test(data.phonenumber) ){
+                                layer.alert("电话的格式不正确，请重新输入！", {icon : 2, zIndex : layer.zIndex});
+                                return false;
+                            }
+                        }
+                        //邮箱
+                        if(data.email.length> 0){
+                            var rex =/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+                            if(!rex.test(data.email)){
+                                layer.alert("邮箱的格式不正确，请重新输入！", {icon : 2, zIndex : layer.zIndex});
+                                return false;
+                            }
+                        }
+                        //提交表单
+                        $.doAction.ajax({
+                            url:ctx+'sys/user/detail/add',
+                            data:data,
+                            success:function (data) {
+                                if(data.code=200){
+                                    layer.alert(data.msg, {icon : 1,zIndex: layer.zIndex});
+                                    layer.close(index);
+                                    userManager.tableLoad() ;
+                                }else {
+                                    layer.alert(data.msg, {icon : 2,zIndex: layer.zIndex});
+                                    return false;
+                                }
+                            }
+                        })
 
                     },
                     /**右上角关闭按钮事件*/
@@ -165,7 +218,7 @@
                         type:2,
                         content : url,
                         title : '编辑用户信息',
-                        area: ['1050px', '630px'],
+                        area: ['480px', '480px'],
                         btnAlign: 'c',
                         btn:['保存','取消'],
                         yes: function (index, layero) {

@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
     public List<SysUser> selectUserList(SysUser user) {
         return sysUserMapper.selectUserList(user);
     }
+
+    @Override
+    public int add(SysUser user) {
+        return sysUserMapper.insert(user);
+    }
 }

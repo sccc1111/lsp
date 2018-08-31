@@ -13,4 +13,6 @@ public interface UserService {
     SysUser selectUserByUserName(String userName);
 
     List<SysUser> selectUserList(SysUser user);
+
+    int add(SysUser user);
 }

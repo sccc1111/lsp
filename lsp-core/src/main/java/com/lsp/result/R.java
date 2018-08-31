@@ -20,6 +20,7 @@ public class R extends HashMap<String, Object> implements Serializable {
     public static R ok(Object msg,Object obj) {
         R r = new R();
         r.put("msg", msg);
+        r.put("code", 200);
         r.put("obj", obj);
         return r;
     }

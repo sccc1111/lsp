@@ -16,9 +16,15 @@ public class PasswordUtils {
         return hash.toString();
     }
 
+    public static String getSalt(){
+        SecureRandomNumberGenerator secureRandom = new SecureRandomNumberGenerator();
+        String hex = secureRandom.nextBytes(3).toHex();
+        return hex;
+    }
+
     public static void main(String[] args){
         SecureRandomNumberGenerator secureRandom = new SecureRandomNumberGenerator();
         String hex = secureRandom.nextBytes(3).toHex();
-        System.out.print(getPassword("123","b18245")+"==="+"b18245");
+        System.out.print(getPassword("123","b18245")+"==="+"b18245"+hex);
     }
 }

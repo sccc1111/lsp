@@ -60,11 +60,17 @@ public class DictTagProcessor extends AbstractElementTagProcessor {
 
         final IModel model = modelFactory.createModel();
         StringBuffer str =  new StringBuffer();
-        str.append("<select name='"+name.getValue()+"' id='"+id.getValue()+"'");
-        if(null!=Class&&StringUtils.isNotEmpty(Class.getValue())){
-            str.append("class='"+Class+"'");
+        str.append("<select ");
+        if(null!=name&&StringUtils.isNotEmpty(name.getValue())){
+            str.append(" name='"+name.getValue()+"'");
         }
-        str.append(">").append("<option value='' >请选择</option>");
+        if(null!=id&&StringUtils.isNotEmpty(id.getValue())){
+            str.append(" id='"+id.getValue()+"'");
+        }
+        if(null!=Class&&StringUtils.isNotEmpty(Class.getValue())){
+            str.append(" class='"+Class+"'");
+        }
+        str.append("> ").append("<option value='' >请选择</option>");
         //字典类型
         if(null!=dictType&&StringUtils.isNotEmpty(dictType.getValue())){
             SysDictDataMapper mapper = appCtx.getBean(SysDictDataMapper.class);

@@ -1,5 +1,6 @@
 package com.lsp.controller;
 
+import com.lsp.core.common.PasswordUtils;
 import com.lsp.entity.SysUser;
 import com.lsp.result.PageEntity;
 import com.lsp.result.R;
@@ -7,10 +8,7 @@ import com.lsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,6 +45,15 @@ public class UserController extends BaseController {
         }
         map.put("type",type);
         return "user/userDetail";
+    }
+
+    @PostMapping("/user/detail/add")
+    @ResponseBody
+    public R index(@RequestBody SysUser user, ModelMap map){
+        user.setSalt(PasswordUtils.getSalt());
+        user.setPassword(PasswordUtils.getPassword("123456",user.getSalt()));
+        userService.add(user);
+        return R.ok("保存成功");
     }
 
 }
